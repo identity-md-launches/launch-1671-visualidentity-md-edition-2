@@ -1,0 +1,10 @@
+{
+  "kind": "evm_contracts",
+  "contracts": [
+    {
+      "contract": "VisualIdentityEdition2",
+      "constructorArgs": []
+    }
+  ],
+  "notes": "VisualIdentityEdition2 is the single application contract of VisualIdentity.md Edition 2 on Ethereum mainnet (chain id 1). It is an ERC-721 (name \"VisualIdentity.md Edition 2\", symbol \"VIMD2\") that mints one NFT per entry, at most one per identity.md seat (ids 0 to 1999). The constructor takes no arguments, calls no other contract and checks no code length: it only fixes ENTRY_END = deployment + 4 days and VOTE_END = deployment + 7 days. There is no owner, admin, role, setting, upgrade or pause, so no $owner argument is used. The outside contracts are compiled-in constants: VIMD (0x931fD96a22BcA8E1008D18ed827D5C042932BE17, the token of launch 1645), the identity.md seats ERC-721 (0x0000eC93127BAA929E58E97dd0095A2BFb38ec1D), the delegate.xyz DelegateRegistry v2 (0x00000000000000447e69651d841bD8D104Bed493) and the burn address 0x000000000000000000000000000000000000dEaD. A seat's owner, or a wallet delegated for that seat via checkDelegateForERC721 with rights bytes32(0), may call enter (before ENTRY_END, once per seat, burns 25,000 VIMD) and vote (from ENTRY_END until VOTE_END, once per seat, 25,000 VIMD burned and 25,000 VIMD added to the pot). claimPrize, callable by anyone once at or after VOTE_END, pays the whole pot to the entrant of the leading entry (most votes, lower id on a tie) and reverts if no vote was cast. enter, vote and claimPrize are nonReentrant. tokenURI builds a data:application/json;base64 document on chain from the entry's portrait and package links. No fungible token, pool, distributor, swarm allocation, ETH funding or initialization call is part of this launch."
+}
